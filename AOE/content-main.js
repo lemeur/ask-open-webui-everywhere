@@ -52,4 +52,14 @@
     });
     el.dispatchEvent(event);
   });
+
+  // content-mcp.js - Helper pour text extraction
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'get_page_text') {
+      const text = document.body.innerText.slice(0, 100000); // 100k max
+      sendResponse({text});
+      return true;
+    }
+  });
+  
 })();
